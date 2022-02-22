@@ -1,0 +1,43 @@
+.featured{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.featuredItem{
+    flex: 1;
+    padding: 30px;
+    margin: 0 20px;
+    cursor: pointer;
+    border-radius: 10px;
+    -webkit-box-shadow: 2px 1px 16px -12px #000000; 
+    box-shadow: 2px 1px 16px -12px #000000;
+}
+.featuredTitle{
+    font-size: 20px;
+}
+.featuredMoneyContainer{
+    margin:  10px 0px;
+    display: flex;
+    align-items: center;
+}
+.featuredMoney{
+    font-size: 30px;
+    font-weight: 600;
+}
+.featuredMonyRate{
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+.featuredIcon{
+    font-size: 14px;
+    margin-left: 5px;
+    color: green;
+}
+.featuredIcon.negative{
+    color: red;
+}
+.featuredsub{
+    font-size: 15px;
+    color: gray;
+}
