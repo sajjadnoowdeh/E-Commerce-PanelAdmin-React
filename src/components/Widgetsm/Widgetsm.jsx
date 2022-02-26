@@ -1,73 +1,29 @@
-import { Visibility } from "@material-ui/icons";
-import React from "react";
+import useGetProducts from "../CustomHook/CustomGet";
+import NewMembers from "../NewMembers/NewMembers";
+import Skeleton from "@material-ui/lab/Skeleton";
 import "./Widgetsm.style.css";
 const Widgetsm = () => {
+  const [products, setProducts, loading, error] =
+    useGetProducts("/users?new=true");
   return (
-    <div className="widgetSm">
-      <span className="widgetSmTitle">New Join Members</span>
-      <ul className="widgetSmList">
-        <li className="widgetSmListItem">
-          <img
-            className="widgetSmImg"
-            src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-            alt=""
-          />
-          <div className="widgetSmUser">
-            <div className="widgetSmUsername">Anna Kaller</div>
-            <div className="widgetSmUserTitle">Software Enginner</div>
-          </div>
-          <button className="widgetSmButton">
-            <Visibility className={"widgetSmIcon"} />
-            display
-          </button>
-        </li>
-        <li className="widgetSmListItem">
-          <img
-             className="widgetSmImg"
-            src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-            alt=""
-          />
-          <div className="widgetSmUser">
-            <div className="widgetSmUsername">Anna Kaller</div>
-            <div className="widgetSmUserTitle">Software Enginner</div>
-          </div>
-          <button className="widgetSmButton">
-            <Visibility className={"widgetSmIcon"} />
-            display
-          </button>
-        </li>
-        <li className="widgetSmListItem">
-          <img
-             className="widgetSmImg"
-            src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-            alt=""
-          />
-          <div className="widgetSmUser">
-            <div className="widgetSmUsername">Anna Kaller</div>
-            <div className="widgetSmUserTitle">Software Enginner</div>
-          </div>
-          <button className="widgetSmButton">
-            <Visibility className={"widgetSmIcon"} />
-            display
-          </button>
-        </li>
-        <li className="widgetSmListItem">
-          <img
-             className="widgetSmImg"
-            src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-            alt=""
-          />
-          <div className="widgetSmUser">
-            <div className="widgetSmUsername">Anna Kaller</div>
-            <div className="widgetSmUserTitle">Software Enginner</div>
-          </div>
-          <button className="widgetSmButton">
-            <Visibility className={"widgetSmIcon"} />
-            display
-          </button>
-        </li>
-      </ul>
-    </div>
+    <>
+      {loading ? (
+        <div style={{margin:'10px'}}>
+          <Skeleton variant="text" />
+          <Skeleton variant="circle" width={40} height={40} />
+          <Skeleton variant="rect" width={210} height={118} />
+        </div>
+      ) : (
+        <div className="widgetSm">
+          <span className="widgetSmTitle">New Join Members</span>
+          <ul className="widgetSmList">
+            {products.map((user) => (
+              <NewMembers key={user._id} user={user} />
+            ))}
+          </ul>
+        </div>
+      )}
+    </>
   );
 };
 
