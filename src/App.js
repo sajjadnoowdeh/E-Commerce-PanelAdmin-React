@@ -1,5 +1,3 @@
-import TopBar from "./components/TopBar/TopBar";
-import Sidebar from "./components/Sidebar/Sidebar";
 import Home from "./pages/home/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -10,26 +8,28 @@ import NewUser from "./pages/newUser/NewUser";
 import ProductList from "./pages/productList/ProductList";
 import Product from "./pages/product/Product";
 import NewProduct from "./pages/newProduct/NewProduct";
- 
+import Layout from "./components/Layout/Layout";
+import Login from "./pages/login/Login";
+
 function App() {
+
   return (
-    <>
+    <div>
       <BrowserRouter>
-        <TopBar />
-        <div className="container">
-          <Sidebar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/users" element={<UserList />} />
-            <Route path="/user/:userId"  element={<User />}/>
-            <Route path="/newUser" element={<NewUser />} />
-            <Route path="/products" element={<ProductList />} />
-            <Route path="/product/:productId" element={<Product />} />
-            <Route path="/newProduct" element={<NewProduct />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="users" element={<UserList />} />
+            <Route path="user/:userId" element={<User />} />
+            <Route path="newUser" element={<NewUser />} />
+            <Route path="products" element={<ProductList />} />
+            <Route path="product/:productId" element={<Product />} />
+            <Route path="newProduct" element={<NewProduct />} />
+          </Route>
+        </Routes>
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 
