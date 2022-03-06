@@ -1,21 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-
-import { productRows } from "../../dummyData";
 import { Link } from "react-router-dom";
+import Skeleton from "@material-ui/lab/Skeleton";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductsThunk, handleRemoveProductTunck } from "../../Store/reducers/product.reducer/product.reducer";
 
 import "./ProductList.style.css";
-import { useState } from "react";
+
 const ProductList = () => {
-  const [data, setData] = useState(productRows);
+  const { products, loading, error } = useSelector(
+    (state) => state.reducer.products
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProductsThunk());
+  }, []);
 
   const handleRemoveRow = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    dispatch(handleRemoveProductTunck(id))
+    dispatch(getProductsThunk());
   };
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "_id", headerName: "ID", width: 220 },
     {
       field: "product",
       headerName: "Product",
@@ -23,19 +32,14 @@ const ProductList = () => {
       renderCell: (params) => (
         <div className="productListItem">
           <img className="productListImg" src={params.row.img} />
-          {params.row.name}
+          {params.row.title}
         </div>
       ),
     },
     {
-      field: "stock",
+      field: "inStock",
       headerName: "Stock",
       width: 150,
-    },
-    {
-      field: "status",
-      headerName: "Status",
-      width: 160,
     },
     {
       field: "price",
@@ -48,12 +52,12 @@ const ProductList = () => {
       width: 160,
       renderCell: (params) => (
         <>
-          <Link to={"/product/" + params.row.id}>
+          <Link to={"/product/" + params.row._id}>
             <button className="productListEdit">Edit</button>
           </Link>
           <DeleteOutline
             className="productListDelete"
-            onClick={() => handleRemoveRow(params.row.id)}
+            onClick={() => handleRemoveRow(params.row._id)}
           />
         </>
       ),
@@ -61,13 +65,29 @@ const ProductList = () => {
   ];
   return (
     <div className="productList">
-      <DataGrid
-        rows={data}
-        columns={columns}
-        pageSize={8}
-        checkboxSelection
-        disableSelectionOnClick
-      />
+      {loading ? (
+        <>
+          <Skeleton height={"50px"} />
+          <Skeleton height={"50px"} animation={false} />
+          <Skeleton height={"50px"} animation="wave" />
+          <Skeleton height={"50px"} />
+          <Skeleton height={"50px"} animation={false} />
+          <Skeleton height={"50px"} animation="wave" />
+          <Skeleton height={"50px"} />
+          <Skeleton height={"50px"} animation={false} />
+          <Skeleton height={"50px"} animation="wave" />
+          <Skeleton height={"50px"} />
+        </>
+      ) : (
+        <DataGrid
+          rows={products}
+          columns={columns}
+          pageSize={8}
+          checkboxSelection
+          getRowId={(row) => row._id}
+          disableSelectionOnClick
+        />
+      )}
     </div>
   );
 };
