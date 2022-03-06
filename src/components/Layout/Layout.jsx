@@ -9,12 +9,12 @@ import { useEffect } from "react";
 
 const Layout = () => {
   const navigate = useNavigate();
-  const { isAdmin } = JSON.parse(
-    JSON.parse(localStorage.getItem("persist:root")).user
+  const user = JSON.parse(
+    JSON.parse(localStorage.getItem("persist:root"))?.user
   ).currentUser;
 
   useEffect(() => {
-    if (!isAdmin) {
+    if (!user) {
       navigate("/login");
     }
   }, []);
