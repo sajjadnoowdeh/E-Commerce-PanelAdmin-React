@@ -6,15 +6,15 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 const Login = () => {
   const [user, setUser] = React.useState({});
-  const { isAdmin } = JSON.parse(
-    JSON.parse(localStorage.getItem("persist:root")).user
-  ).currentUser;
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userAdmin = JSON.parse(
+    JSON.parse(localStorage.getItem("persist:root"))?.user
+  ).currentUser;
 
+  const dispatch = useDispatch();
   useEffect(() => {
-    if (isAdmin) {
-      navigate("/dashboard");
+    if (userAdmin?.isAdmin) {
+      navigate("/");
     }
   }, []);
 
@@ -24,6 +24,7 @@ const Login = () => {
   const handleClick = (e) => {
     e.preventDefault();
     LoginReq(dispatch, user);
+    userAdmin.isAdmin && navigate("/");
   };
   return (
     <>
