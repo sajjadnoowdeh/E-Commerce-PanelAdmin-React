@@ -1,9 +1,9 @@
 import axios from "axios";
 
 
-const TOKEN = JSON.parse(JSON.parse(localStorage.getItem('persist:root')).user).currentUser.accessToken;
+const TOKEN = localStorage.getItem('persist:root') ? JSON.parse(JSON.parse(localStorage.getItem('persist:root'))?.user).currentUser?.accessToken : null;
 const publicRequest = axios.create({
-  baseURL: "http://localhost:5000/api/",
+  baseURL: "http://localhost:5000/api/", 
 });
 
 const userRequest = axios.create({
@@ -13,7 +13,7 @@ const userRequest = axios.create({
 userRequest.interceptors.request.use(
   function (config) {
       config.headers = {
-           'Authorization':`Bearer ${JSON.parse(JSON.parse(localStorage.getItem('persist:root')).user).currentUser.accessToken}`,
+           'Authorization':`Bearer ${TOKEN}`,
            'Content-Type':'application/json'
       }
     return config;
