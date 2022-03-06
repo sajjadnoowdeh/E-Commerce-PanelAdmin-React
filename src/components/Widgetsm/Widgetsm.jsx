@@ -1,4 +1,4 @@
-import useGetProducts from "../CustomHook/CustomGet";
+import useGetProducts from "../../hooks/CustomGet";
 import NewMembers from "../NewMembers/NewMembers";
 import Skeleton from "@material-ui/lab/Skeleton";
 import "./Widgetsm.style.css";

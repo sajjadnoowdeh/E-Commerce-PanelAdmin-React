@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import useGetProducts from "../CustomHook/CustomGet";
+import useGetProducts from "../../hooks/CustomGet";
 import ProductTransication from "../ProductTansication/ProductTransication";
 import Skeleton from "@material-ui/lab/Skeleton";
 import "./WidgetLg.style.css";
 const WidgetLg = () => {
-  const [orders, setOrders] = useState([]);
   const [products, setProducts, loading, error] = useGetProducts("/orders");
 
   return (
@@ -13,7 +12,7 @@ const WidgetLg = () => {
         <div style={{ margin: "10px" }}>
           <Skeleton variant="text" />
           <Skeleton variant="circle" width={40} height={40} />
-          <Skeleton variant="rect" width={210} height={118} />
+          <Skeleton variant="rect" width={710} height={118} />
         </div>
       ) : (
         <div className="widgetLg">
