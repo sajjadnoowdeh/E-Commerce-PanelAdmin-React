@@ -13,8 +13,8 @@ const Login = React.lazy(() => import("../pages/login/Login"));
 export let routers = [
   { path: "/login", element: <Login /> },
   {
-    path: "/dashboard",
     element: <Layout />,
+
     children: [
       { index: true, element: <Home /> },
       { path: "users", element: <UserList /> },
