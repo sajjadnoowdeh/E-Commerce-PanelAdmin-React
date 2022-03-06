@@ -1,5 +1,6 @@
 .newProduct{
     flex: 4;
+    margin:0 20px
 }
 .addProductForm{
     margin-top: 10px;
